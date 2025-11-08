@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respiração da Água - Adaptações para Jogo</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <style>
+        body {
+            background-color: #1a1a1a !important; 
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+ @media (max-width: 576px) {
+    .container-custom {
+        /* Adicionando um padding extra nas laterais de telas muito pequenas */
+        padding: 15px 10px !important; 
+        margin: 15px auto !important; /* Margem menor no topo/base */
+    }
+}
+
+
+        .container-custom {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: #2c2c2c;
+            padding: 25px 35px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid #444;
+        }
+
+        .h1-custom {
+            color: #4682b4; /* SteelBlue */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .h2-custom {
+            color: #87cefa
+            border-bottom: 2px solid #87cefa;
+            padding-bottom: 8px;
+            margin-top: 35px;
+            font-size: 1.8em;
+        }
+        
+        .h3-custom {
+            color: #afeeee; 
+            margin-top: 25px;
+            font-size: 1.4em;
+        }
+
+        .section-content-custom {
+            background-color: #383838;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #555;
+        }
+
+        .ability-details {
+            display: none; /* Oculta os detalhes por padrão */
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #555;
+        }
+
+        .toggle-button {
+            /* Estilo do botão  usando classes do Bootstrap, mas com cor personalizada */
+            background-color: #5f9ea0; /* CadetBlue */
+            border: none;
+            color: white;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+            margin-top: 10px;
+        }
+
+        .toggle-button:hover {
+            background-color: #4682b4;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #777;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cores de status mantidas para essência do RPG */
+        .cost {
+            font-weight: bold;
+            color: #90ee90; /* LightGreen */
+        }
+
+        .damage {
+            font-weight: bold;
+            color: #ff6347; /* Tomato */
+        }
+
+        .effect {
+            font-style: italic;
+            color: #b0e0e6; /* PowderBlue */
+        }
+
+        .reaction-trigger, .reaction-cost, .reaction-effect {
+            font-weight: bold;
+            color: #ffe4b5; /* Moccasin */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container container-custom">
+
+        <h1 class="h1-custom">Adaptações da Respiração da Água</h1>
+
+        <hr>
+
+        <h2 class="h2-custom">Habilidade Passiva: Evasão Fluida</h2>
+
+        <div class="section-content-custom mb-4">
+            <p><strong>Mecânica no Jogo:</strong> Sempre que o usuário se move pelo menos 2 casas em seu turno, ele ganha um bônus de +5 na Velocidade até o final do turno, e o próximo ataque direto que ele sofrer naquele turno tem sua chance de acerto reduzida em 10% (ou o atacante sofre -10 de Dano Base).</p>
+            <p><strong>Recuperação Serena:</strong> No início de cada turno do usuário, se ele não tiver sofrido dano no turno anterior, ele recupera 5 pontos de Respiração adicionais.</p>
+        </div>
+
+        <hr>
+
+        <h2 class="h2-custom">Formas da Respiração da Água</h2>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Primeira Forma: Corte d’Água Superficial</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('corteAguaSuperficial')">Mostrar Detalhes</button>
+                <div id="corteAguaSuperficial" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário da respiração dará um dash para frente e podendo se jogar ao ar, podendo dar um poderoso corte lateral.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> O usuário avança 1 casa para frente e, a partir dessa nova posição, atinge 3 casas à sua frente na horizontal (um corte lateral de 1x3 blocos).</li>
+                        <li><span class="effect"><strong>Efeito:</strong> Causa dano aos inimigos na área.</span></li>
+                        <li><strong>Acerto:</strong> Automático.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 20 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 15.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/JncwS28h/Tanjiro-using-First-Form-Water-Surface-Slash-to-kill-Hand-Demon.gif" alt="GIF da Primeira Forma: Corte d’Água Superficial" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Segunda Forma: Roda d’Água</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('rodaAgua')">Mostrar Detalhes</button>
+                <div id="rodaAgua" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário da respiração fará um pulo, atacando seu inimigo com um corte circular, defendendo danos sofridos em 20%.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> O usuário move-se 2 casas em uma direção desejada (e fica "no ar" na casa final, o que pode dar vantagens contra ataques terrestres ou armadilhas). A partir da casa final, ataca 1 casa à sua frente e 1 casa atrás (em linha com seu movimento, atingindo 2 blocos).</li>
+                        <li><span class="effect"><strong>Efeito (Ação Principal):</strong> Causa dano aos inimigos na área. O usuário ganha <strong>Resistência a Dano Físico</strong> (reduz 20% do próximo dano físico recebido) até o início do seu próximo turno.</span></li>
+                        <li><strong>Acerto:</strong> Automático.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 40 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 20.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/SRcq4sf4/Tanjiro-using-Second-Form-Modified-Horizontal-Water-Wheel-to-slice-Yahaba-s-head.gif" alt="GIF da Segunda Forma: Roda d’Água" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Terceira Forma: Dança dos Movimentos Rápidos Padronizados</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('dancaMovimentosRapidos')">Mostrar Detalhes</button>
+                <div id="dancaMovimentosRapidos" class="ability-details">
+                    <p><strong>Descrição:</strong> Esta forma só poderá ser usada caso tenha mais de um inimigo em uma área de 5x5 em sua volta. Ela poderá atacar qualquer personagem em uma área de 5x5 em volta do usuário. Atacando os personagens de forma consecutiva igual ao número de personagens. E para cada personagem, o corte ficará mais forte (+5 de dano).</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Atinge qualquer personagem em uma área de 5x5 blocos em volta do usuário.</li>
+                        <li><span class="effect"><strong>Efeito (Ação Principal):</strong> Só pode ser usada se houver mais de um inimigo na área de 5x5. O usuário ataca cada inimigo na área de forma consecutiva. Para cada inimigo atacado (contando a partir do primeiro), o dano base aumenta em +5.</span></li>
+                        <li><strong>Acerto:</strong> Automático.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 55 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> Base 30. Aumenta em +5 por inimigo consecutivo.</span></li>
+                    </ul>
+                    <p><span class="reaction-trigger"><strong>Reação (Ofensiva/Movimento):</strong></span></p>
+                    <ul>
+                        <li><span class="reaction-trigger"><strong>Gatilho:</strong> Quando o usuário é atacado por 2 ou mais inimigos ao mesmo tempo, ou por dois ou mais ataques no mesmo turno.</span></li>
+                        <li><span class="reaction-cost"><strong>Custo:</strong> 2 PA, 55 Respiração.</span></li>
+                        <li><strong>Mecânica:</strong> O usuário contra-ataca todos os inimigos na área e se move rapidamente para reposicionamento.</li>
+                        <li><strong>Área atingida (Reação):</strong> Atinge todos os inimigos na área de 5x5 blocos em volta do usuário.</li>
+                        <li><span class="reaction-effect"><strong>Efeito:</strong> Todos os inimigos na área sofrem 30 de dano. Após o ataque, o usuário pode mover-se 2 casas em qualquer direção sem provocar ataques de oportunidade.</span></li>
+                        <li><strong>Acerto:</strong> Automático (para a Reação).</li>
+                        <li><span class="damage"><strong>Dano (Reação):</strong> 30.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/sxjFz4f4/Tanjiro-using-Third-Form-Flowing-Dance-on-Susamaru.gif" alt="GIF da Terceira Forma: Dança dos Movimentos Rápidos Padronizados" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Quarta Forma: Maré Impactante</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('mareImpactante')">Mostrar Detalhes</button>
+                <div id="mareImpactante" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário da respiração dará uma sequência de cortes em sua frente de forma consecutiva.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Atinge 1 quadrado à sua frente.</li>
+                        <li><span class="effect"><strong>Efeito (Ação Principal):</strong> O usuário rola um dado de 6 faces (1d6). O usuário realiza um número de ataques consecutivos igual ao resultado do dado, até um máximo de 6 ataques. Para cada ataque realizado, o dano aumenta em +3.</span>
+                            <ul>
+                                <li>Ex: Se rolar 3, faz 3 ataques. O primeiro com 15 de dano, o segundo com 18, o terceiro com 21. O dano total seria 15+18+21=54</li>
+                            </ul>
+                        </li>
+                        <li><strong>Acerto:</strong> Automático para cada ataque.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 80 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 15 (base por ataque), +3 por ataque consecutivo.</span></li>
+                    </ul>
+                    <p><span class="reaction-trigger"><strong>Reação (Ofensiva/Controle):</strong></span></p>
+                    <ul>
+                        <li><span class="reaction-trigger"><strong>Gatilho:</strong> Quando um inimigo ataca o usuário corpo a corpo e estiver na casa adjacente ao usuário.</span></li>
+                        <li><span class="reaction-cost"><strong>Custo:</strong> 2 PA, 60 Respiração.</span></li>
+                        <li><strong>Mecânica:</strong> O usuário usa um corte rápido para desestabilizar e afastar o oponente.</li>
+                        <li><strong>Área atingida (Reação):</strong> Atinge o inimigo adjacente.</li>
+                        <li><span class="reaction-effect"><strong>Efeito:</strong> Causa 15 de dano e empurra o alvo 1 casa para trás.</span></li>
+                        <li><strong>Acerto:</strong> Automático (para a Reação).</li>
+                        <li><span class="damage"><strong>Dano (Reação):</strong> 15.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/h4mKTyWY/Tanjiro-using-Striking-Tide-Turbulent.gif" alt="GIF da Quarta Forma: Maré Impactante" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Quinta Forma: Chuva Milagrosa em Dia Seco</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('chuvaMilagrosa')">Mostrar Detalhes</button>
+                <div id="chuvaMilagrosa" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário da respiração, ao se deparar com um inimigo muito fraco, poderá matar de forma instantânea o alvo.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Atinge até 3 casas em linha reta à frente do usuário.</li>
+                        <li><span class="effect"><strong>Efeito (Ação Principal):</strong> Se o alvo estiver na área e atender a uma das condições, ele é derrotado instantaneamente.</span>
+                            <ul>
+                                <li><strong>Condição 1:</strong> Alvo tem 25% de sua Vida Total ou menos.</li>
+                                <li><strong>Condição 2:</strong> Alvo é considerado "muito fraco" a critério do Mestre (ex: inimigos menores, demônios recém-criados, demônios com habilidades de fuga/cura anuladas).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Acerto:</strong> Automático (se as condições de vida/fraqueza forem atendidas).</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 100 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> Morte Instantânea. (Não há dano numérico, pois o efeito é letal direto).</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/wBNYQBbL/Tanjiro-using-Fifth-Form-on-Mother-Spider-Demon.gif" alt="GIF da Quinta Forma: Chuva Milagrosa em Dia Seco" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Sexta Forma: Redemoinho Giratório</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('redemoinhoGiratorio')">Mostrar Detalhes</button>
+                <div id="redemoinhoGiratorio" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário irá brandir sua espada se contorcendo para gerar um redemoinho de água atacando tudo a sua volta.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Atinge todos os blocos ao redor do usuário (um raio de 1 bloco).</li>
+                        <li><span class="effect"><strong>Efeito:</strong> Causa dano aos inimigos na área e os empurra.</span></li>
+                        <li><strong>Acerto:</strong> Automático para todos na área.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 45 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 20.</span></li>
+                        <li><span class="effect"><strong>Efeito Adicional:</strong> Empurra os inimigos atingidos 1 casa para longe do usuário.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/Zqv4sH09/Tanjiro-use-Twisting-Whirlpool-Flowing-Water.gif" alt="GIF da Sexta Forma: Redemoinho Giratório" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Sétima Forma: Ataque Curvo Perfurador de Ondas</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('ataqueCurvoPerfurador')">Mostrar Detalhes</button>
+                <div id="ataqueCurvoPerfurador" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário fará uma série de estocadas rápidas sem poder sair do lugar, extremamente precisas, defendendo o usuário e aliados próximos.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Protege uma área de 3 blocos na sua frente na horizontal.</li>
+                        <li><span class="effect"><strong>Efeito (Ação Principal):</strong> O usuário bloqueia 100% do dano de qualquer projétil lançado em uma área de 3 blocos à sua frente na horizontal, defendendo o usuário e aliados atrás dessa linha.</span></li>
+                        <li><strong>Acerto:</strong> Não se aplica (é uma defesa/bloqueio).</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 45 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 0 (é uma forma defensiva).</span></li>
+                    </ul>
+                    <p><span class="reaction-trigger"><strong>Reação (Defensiva/Interceptação):</strong></span></p>
+                    <ul>
+                        <li><span class="reaction-trigger"><strong>Gatilho:</strong> Caso o oponente lance algum projétil na sua linha de visão (dentro dos 3 blocos à frente).</span></li>
+                        <li><span class="reaction-cost"><strong>Custo:</strong> 2 PA, 50 Respiração.</span></li>
+                        <li><strong>Mecânica:</strong> O usuário ativa rapidamente a forma para interceptar o projétil.</li>
+                        <li><strong>Área atingida (Reação):</strong> Protege a área de 3 blocos na sua frente na horizontal.</li>
+                        <li><span class="reaction-effect"><strong>Efeito:</strong> Defende 50% do dano do projétil a você e aliados atrás da linha horizontal.</span></li>
+                        <li><strong>Acerto:</strong> Não se aplica (é uma defesa).</li>
+                        <li><span class="damage"><strong>Dano (Reação):</strong> 0.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/qMmrkS3h/Tanjiro-using-Seventh-Form-Drop-Ripple-Thrust-curve-on-the-temari.gif" alt="GIF da Sétima Forma: Ataque Curvo Perfurador de Ondas" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Oitava Forma: Jarro de Cachoeira</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('jarroCachoeira')">Mostrar Detalhes</button>
+                <div id="jarroCachoeira" class="ability-details">
+                    <p><strong>Descrição:</strong> Um poderoso corte vertical de cima para baixo imitando a queda de uma cachoeira.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Atinge um único bloco à sua frente.</li>
+                        <li><span class="effect"><strong>Efeito (Ação Principal):</strong> Causa dano ao alvo.</span></li>
+                        <li><strong>Acerto:</strong> Automático.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 55 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 35.</span></li>
+                        <li><strong>Condição Especial:</strong> O usuário precisa estar no ar (ex: ter pulado no turno anterior, ou ser lançado, ou usar uma forma que o coloca no ar, como a Segunda Forma da Água) para usar esta forma.</li>
+                        <li><span class="effect"><strong>Efeito Adicional:</strong> Se o dano causado por esta forma for significativo (30% ou mais da Vida Total do alvo em um único golpe), o alvo ficará <strong>Atordoado</strong> por 1 turno.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/fyDsLhCX/Tanjiro-using-Eighth-Form-Waterfall-Basin-against-Swamp-Demon.gif" alt="GIF da Oitava Forma: Jarro de Cachoeira" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Nona Forma: Respingo de Água do Caos</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('respingoAguaCaos')">Mostrar Detalhes</button>
+                <div id="respingoAguaCaos" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário com esta forma não necessita de apoio para os pés para se locomover e brandir sua espada, disparando golpes quase infinitos. No turno usado, o usuário poderá mover uma casa a mais sem gastar PA.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Atinge uma área de 2x3 blocos à sua frente na horizontal.</li>
+                        <li><span class="effect"><strong>Efeito:</strong> Causa dano aos inimigos na área. Além disso, no turno em que esta forma é usada, o usuário pode mover-se 1 casa adicional sem gastar PA.</span></li>
+                        <li><strong>Acerto:</strong> Automático.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 75 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 45.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/5N91Wb6W/Tanjiro-defeats-Kyogai-with-Ninth-Form.gif" alt="GIF da Nona Forma: Respingo de Água do Caos" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Décima Forma: Dragão da Mudança</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('dragaoMudanca')">Mostrar Detalhes</button>
+                <div id="dragaoMudanca" class="ability-details">
+                    <p><strong>Descrição:</strong> O usuário fará uma grande investida à até três inimigo, indo do mais perto ao mais longe em extrema velocidade em forma de dragão, com cada corte ficando mais forte a cada personagem afetado.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> O usuário avança 2 blocos e atinge até três inimigos em uma área de 8x2 blocos à sua frente, priorizando do mais próximo ao mais distante.</li>
+                        <li><span class="effect"><strong>Efeito:</strong> O usuário investe em forma de dragão, atacando até 3 inimigos na área. O dano base é 30. Para cada personagem consecutivamente atingido, o dano aumenta em +20.</span>
+                            <ul>
+                                <li>Ex: 1º inimigo: 50. 2º inimigo: 70. 3º inimigo: 90.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Acerto:</strong> Automático.</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 120 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 30 (base por inimigo), +20 por inimigo consecutivo.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/DfPFN8fc/Tanjiro-using-Tenth-Form.gif" alt="GIF da Décima Forma: Dragão da Mudança" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white mb-3">
+            <div class="card-body section-content-custom">
+                <h3 class="h3-custom">Décima Primeira Forma: Calmaria</h3>
+                <button class="btn btn-sm toggle-button" onclick="toggleDetails('calmaria')">Mostrar Detalhes</button>
+                <div id="calmaria" class="ability-details">
+                    <p><strong>Descrição:</strong> Uma defesa absoluta. O usuário ficará parado focando totalmente em se defender e desviar de qualquer ataque desferido pelo inimigo.</p>
+                    <ul>
+                        <li><strong>Área atingida:</strong> Protege o usuário e aliados em uma área de 5x5 blocos em volta do usuário.</li>
+                        <li><span class="effect"><strong>Efeito (Ação Principal):</strong> O usuário fica parado e foca em defesa. Bloqueia 100% de todo o dano (projéteis e ataques de inimigos) desferido contra o usuário e aliados dentro da área de 5x5 por 1 turno.</span></li>
+                        <li><strong>Acerto:</strong> Não se aplica (é uma defesa/bloqueio).</li>
+                        <li><span class="cost"><strong>Gasto:</strong> 1 PA, 150 Respiração.</span></li>
+                        <li><span class="damage"><strong>Dano:</strong> 0 (é uma forma defensiva).</span></li>
+                    </ul>
+                    <p><span class="reaction-trigger"><strong>Reação (Defensiva Absoluta):</strong></span></p>
+                    <ul>
+                        <li><span class="reaction-trigger"><strong>Gatilho:</strong> Caso o dano de um ataque seja significativo (50% ou mais da Vida original do usuário ou de algum aliado em uma área de 5x5 do usuário).</span></li>
+                        <li><span class="reaction-cost"><strong>Custo:</strong> 3 PA, 170 Respiração.</span></li>
+                        <li><strong>Mecânica:</strong> O usuário ativa uma defesa quase perfeita em resposta a um golpe devastador.</li>
+                        <li><strong>Área atingida (Reação):</strong> Protege o usuário e aliados em uma área de 5x5 blocos em volta do usuário.</li>
+                        <li><span class="reaction-effect"><strong>Efeito:</strong> O dano do ataque desencadeante é reduzido em 80% para o usuário e os aliados na área protegida.</span></li>
+                        <li><strong>Acerto:</strong> Não se aplica (é uma defesa).</li>
+                        <li><span class="damage"><strong>Dano (Reação):</strong> 0.</span></li>
+                    </ul>
+                    <img src="https://i.postimg.cc/T3wRgf6J/Giyu-using-Eleventh-Form-on-Rui-s-attack.gif" alt="GIF da Décima Primeira Forma: Calmaria" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        function toggleDetails(id) {
+            const details = document.getElementById(id);
+            const button = details.previousElementSibling;
+            if (details.style.display === "block") {
+                details.style.display = "none";
+                button.textContent = "Mostrar Detalhes";
+            } else {
+                details.style.display = "block";
+                button.textContent = "Esconder Detalhes";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
